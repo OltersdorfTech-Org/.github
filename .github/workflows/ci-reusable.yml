@@ -12,7 +12,7 @@ on:
         description: 'Python launcher command'
         required: false
         type: string
-        default: 'py -3'
+        default: 'py -3.11'
       run_preflight:
         required: false
         type: boolean
