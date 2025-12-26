@@ -1,0 +1,92 @@
+name: Reusable CI
+
+on:
+  workflow_call:
+    inputs:
+      runner_labels:
+        description: 'Runner labels as JSON array string'
+        required: false
+        type: string
+        default: '["self-hosted","Windows","X64"]'
+      python_cmd:
+        description: 'Python launcher command'
+        required: false
+        type: string
+        default: 'py -3'
+      run_preflight:
+        required: false
+        type: boolean
+        default: true
+      run_tests:
+        required: false
+        type: boolean
+        default: true
+      run_lint:
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: CI (self-hosted)
+    runs-on: ${{ fromJSON(inputs.runner_labels) }}
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure logs folder exists
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path .\logs | Out-Null
+
+      - name: Show Python
+        shell: pwsh
+        run: |
+          $py = "${{ inputs.python_cmd }}"
+          & powershell -NoProfile -Command "$py --version"
+          & powershell -NoProfile -Command "$py -m pip --version"
+
+      - name: Install nox
+        shell: pwsh
+        run: |
+          $py = "${{ inputs.python_cmd }}"
+          & powershell -NoProfile -Command "$py -m pip install --upgrade pip"
+          & powershell -NoProfile -Command "$py -m pip install nox"
+
+      - name: Run nox (preflight)
+        if: ${{ inputs.run_preflight }}
+        shell: pwsh
+        run: |
+          $py = "${{ inputs.python_cmd }}"
+          & powershell -NoProfile -Command "$py -m nox -s preflight"
+
+      - name: Run nox (tests)
+        if: ${{ inputs.run_tests }}
+        shell: pwsh
+        run: |
+          $py = "${{ inputs.python_cmd }}"
+          & powershell -NoProfile -Command "$py -m nox -s tests"
+
+      - name: Run nox (lint)
+        if: ${{ inputs.run_lint }}
+        shell: pwsh
+        run: |
+          $py = "${{ inputs.python_cmd }}"
+          & powershell -NoProfile -Command "$py -m nox -s lint"
+
+      - name: Upload logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-${{ github.repository }}-${{ github.run_id }}
+          path: |
+            logs/**
+            **/*.log
+            **/*preflight*.txt
+            **/*preflight*.json
+          if-no-files-found: ignore
