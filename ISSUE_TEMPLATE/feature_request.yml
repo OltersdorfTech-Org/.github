@@ -1,0 +1,57 @@
+name: ✨ Feature request
+description: Propose an improvement or new capability
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are welcome. The best ones explain the problem clearly and propose a practical path.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / user story
+      description: What problem are you trying to solve? Who benefits?
+      placeholder: "As a maker/user, I want..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to happen?
+      placeholder: "Add a button / add a CLI flag / add support for..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you thought about?
+      placeholder: "I considered..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Small (a tweak or simple addition)
+        - Medium (new subsystem or moderate refactor)
+        - Large (architectural change / major new capability)
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / constraints
+      description: Hardware constraints, safety concerns, performance needs, etc.
+      placeholder: "Must run on Pi Zero 2W / must be portable / no internet / etc."
+    validations:
+      required: false
