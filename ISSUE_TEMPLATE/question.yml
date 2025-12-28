@@ -1,0 +1,27 @@
+name: ❓ Question
+description: Ask a question about usage, behavior, or direction
+title: "[Question]: "
+labels: ["question"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Questions are welcome. Include enough context so we can answer without guessing.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      placeholder: "How do I... / Why does... / Is it possible to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: OS, hardware, what you've tried, relevant logs.
+      placeholder: "I'm on... I tried... I saw..."
+    validations:
+      required: false
