@@ -1,0 +1,82 @@
+name: 🐛 Bug report
+description: Something is broken or behaving unexpectedly
+title: "[Bug]: "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Clear reports save everyone time and sanity.
+
+  - type: textarea
+    id: what-you-did
+    attributes:
+      label: What were you trying to do?
+      description: A short description of the goal.
+      placeholder: "I tried to run... / I clicked... / I connected..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include error messages and what you expected instead.
+      placeholder: "It crashed with... / It hung when... / It did X instead of Y..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps so someone else can reproduce it.
+      placeholder: |
+        1. Go to...
+        2. Click...
+        3. Observe...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Minor (annoying but workable)
+        - Major (blocks normal use)
+        - Critical (data loss / unsafe behavior / can't run)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Repo/version/commit
+      description: Tag, release version, or commit SHA if known.
+      placeholder: "v0.3.1 or 1a2b3c4"
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, hardware, and anything relevant.
+      placeholder: |
+        OS: Windows 11 / Ubuntu 24.04 / Raspberry Pi OS
+        Python: 3.11
+        Hardware: Pi Zero 2W / Desktop / etc.
+        Peripherals: camera, GPIO, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Paste logs (preferred) or screenshots. Redact secrets.
+      placeholder: "Paste logs here..."
+    validations:
+      required: false
